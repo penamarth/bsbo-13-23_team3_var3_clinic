@@ -1,10 +1,10 @@
 @startuml use_case_diagram
 left to right direction
 
-actor Patient
-actor Registrar
-actor Doctor
-actor Administrator
+actor Пациент
+actor Регистратор
+actor Врач
+actor Администратор
 
 rectangle "Медицинская информационная система" {
     usecase "Запись на приём" as BA
@@ -15,22 +15,22 @@ rectangle "Медицинская информационная система" {
 }
 
 ' Patient interactions
-Patient -- BA
-Patient -- RA
+Пациент -- BA
+Пациент -- RA
 
-' Registrar interactions
-Registrar -- BA
-Registrar -- RA
-Registrar -- RPR
-Registrar -- RMR
+' Обязанности регистратора
+Регистратор -- BA
+Регистратор -- RA
+Регистратор -- RPR
+Регистратор -- RMR
 
-' Doctor interactions
-Doctor -- BA  
-Doctor -- RA 
-Doctor -- RV
+' Обязанности доктора
+Врач -- BA
+Врач -- RA
+Врач -- RV
 
-' Administrator interactions
-Administrator -- RPR
-Administrator -- RMR
+' Обязанности администратора
+Администратор -- RPR
+Администратор -- RMR
 
 @enduml
