@@ -1,0 +1,36 @@
+@startuml use_case_diagram
+left to right direction
+
+actor Patient
+actor Registrar
+actor Doctor
+actor Administrator
+
+rectangle "Медицинская информационная система" {
+    usecase "Запись на приём" as BA
+    usecase "Перенос записи" as RA
+    usecase "Фиксация факта приёма" as RV
+    usecase "Постановка на учёт" as RPR
+    usecase "Снятие с учёта" as RMR
+}
+
+' Patient interactions
+Patient -- BA
+Patient -- RA
+
+' Registrar interactions
+Registrar -- BA
+Registrar -- RA
+Registrar -- RPR
+Registrar -- RMR
+
+' Doctor interactions
+Doctor -- BA  
+Doctor -- RA 
+Doctor -- RV
+
+' Administrator interactions
+Administrator -- RPR
+Administrator -- RMR
+
+@enduml
