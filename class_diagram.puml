@@ -71,3 +71,4 @@ Registrar --> Appointment
 Registrar --> MedicalRecord
 Administrator --> MedicalRecord
 }
+@enduml
