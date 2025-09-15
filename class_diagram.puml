@@ -1,5 +1,5 @@
 @startuml class_diagram
-package "Medical System" {
+package "Medical Information System" {
 class Patient {
   - id : int
   - fullName : string
