@@ -1,0 +1,73 @@
+@startuml class_diagram
+package "Clinic Information System" {
+class Patient {
+  - id : int
+  - fullName : string
+  - contactInfo : string
+  - recordStatus : string
+  + bookAppointment()
+  + rescheduleAppointment()
+  + cancelAppointment()
+}
+
+class Registrar {
+  - id : int
+  - fullName : string
+  + createAppointment()
+  + rescheduleAppointment()
+  + registerPatient()
+  + removePatientFromRecord()
+}
+
+class Doctor {
+  - id : int
+  - fullName : string
+  - specialty : string
+  - schedule : Slot[]
+  + provideAvailableSlots()
+  + conductAppointment()
+  + recordVisitResults()
+}
+
+class Administrator {
+  - id : int
+  - fullName : string
+  + confirmRegistration()
+  + removeFromRecord()
+}
+
+class Appointment {
+  - id : int
+  - date : Date
+  - time : Time
+  - status : string
+  + create()
+  + reschedule()
+  + cancel()
+}
+
+class MedicalRecord {
+  - id : int
+  - history : Visit[]
+  + addVisit()
+  + archive()
+}
+
+class Notification {
+  - id : int
+  - type : string
+  - message : string
+  - sentDate : Date
+  + send()
+}
+
+Patient "1" -- "1" MedicalRecord
+Patient "1" -- "*" Appointment
+Doctor "1" -- "*" Appointment
+Patient "1" -- "*" Notification
+Doctor "1" -- "*" Notification
+
+Registrar --> Appointment
+Registrar --> MedicalRecord
+Administrator --> MedicalRecord
+}
