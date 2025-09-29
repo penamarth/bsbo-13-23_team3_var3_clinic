@@ -10,7 +10,7 @@ class Patient {
   + cancelAppointment()
 }
 
-class Registrar {
+class "Registration Information System" {
   - id : int
   - fullName : string
   + createAppointment()
@@ -67,8 +67,8 @@ Doctor "1" -- "*" Appointment
 Patient "1" -- "*" Notification
 Doctor "1" -- "*" Notification
 
-Registrar --> Appointment
-Registrar --> MedicalRecord
-Administrator --> MedicalRecord
+"Registration Information System" --> Appointment
+"Registration Information System" --> MedicalRecord
+"Registration Information System" --> MedicalRecord
 }
 @enduml
