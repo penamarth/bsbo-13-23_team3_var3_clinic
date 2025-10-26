@@ -1,4 +1,4 @@
-@startuml class_diagram
+@startuml
 package "Medical Information System" {
 class Patient {
   - id : int
@@ -41,9 +41,11 @@ class Appointment {
   - date : Date
   - time : Time
   - status : string
+  - doctor : &Doctor
   + create()
   + reschedule()
   + cancel()
+  + recordVisit()
 }
 
 class MedicalRecord {
