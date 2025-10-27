@@ -57,6 +57,7 @@ class Appointment {
 class MedicalRecord {
   - id : int
   - history : Visit[]
+  - status : Bool
   + addVisit()
   + archive()
 }
