@@ -10,7 +10,7 @@ class Patient {
   + cancelAppointment()
 }
 
-class "Registration Information System" {
+class "Information System" {
   - id : int
   - fullName : string
   + createAppointment()
@@ -34,6 +34,12 @@ class Administrator {
   - fullName : string
   + confirmRegistration()
   + removeFromRecord()
+}
+
+class Shedule {
+  - private shedule : List<Appointment>
+  + showShedule()
+  + showAvailableSlots()
 }
 
 class Appointment {
@@ -65,12 +71,15 @@ class Notification {
 
 Patient "1" -- "1" MedicalRecord
 Patient "1" -- "*" Appointment
+Patient .. Notification
+Doctor .. Notification
 Doctor "1" -- "*" Appointment
-Patient "1" -- "*" Notification
-Doctor "1" -- "*" Notification
 
-"Registration Information System" --> Appointment
-"Registration Information System" --> MedicalRecord
-"Registration Information System" --> MedicalRecord
+Administrator "1" --> "1" "Information System"
+
+"Information System" --> MedicalRecord
+"Information System" *-- Shedule
+"Information System" *-- Notification
+Shedule *-- Appointment
 }
 @enduml
