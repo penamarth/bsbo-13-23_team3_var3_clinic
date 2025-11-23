@@ -1,5 +1,11 @@
 @startuml
 package "Medical Information System" {
+
+class Storage {
+  + returnPatient(id)
+  + returnDoctor(id)
+}
+
 class Patient {
   - id : int
   - fullName : string
@@ -13,10 +19,12 @@ class Patient {
 class "Information System" {
   - id : int
   - fullName : string
-  + createAppointment()
+  + createAppointment(patientID, doctorID, appointmentDate, appointmentTime)
   + rescheduleAppointment()
   + registerPatient()
   + removePatientFromRecord()
+  + confirmRegistration()
+  + removeFromRecord()
 }
 
 class Doctor {
@@ -27,13 +35,6 @@ class Doctor {
   + provideAvailableSlots()
   + conductAppointment()
   + recordVisitResults()
-}
-
-class Administrator {
-  - id : int
-  - fullName : string
-  + confirmRegistration()
-  + removeFromRecord()
 }
 
 class Shedule {
@@ -72,13 +73,10 @@ class Notification {
 
 Patient "1" -- "1" MedicalRecord
 Patient "1" -- "*" Appointment
-Patient .. Notification
-Doctor .. Notification
+Patient -- Notification
+Doctor -- Notification
 Doctor "1" -- "*" Appointment
 
-Administrator "1" --> "1" "Information System"
-
-"Information System" --> MedicalRecord
 "Information System" *-- Shedule
 "Information System" *-- Notification
 Shedule *-- Appointment
