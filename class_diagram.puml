@@ -1,7 +1,7 @@
 @startuml
 package "Medical Information System" {
 
-class Storage {
+interface Storage {
   + returnPatient(id)
   + returnDoctor(id)
 }
@@ -79,6 +79,7 @@ Doctor "1" -- "*" Appointment
 
 "Information System" *-- Shedule
 "Information System" *-- Notification
+"Information System" ..|> Storage
 Shedule *-- Appointment
 }
 @enduml
