@@ -14,6 +14,7 @@ class Patient {
   + bookAppointment()
   + rescheduleAppointment()
   + cancelAppointment()
+  + addVisit()
 }
 
 class "Information System" {
@@ -59,7 +60,6 @@ class MedicalRecord {
   - id : int
   - history : Visit[]
   - status : Bool
-  + addVisit()
   + archive()
 }
 
