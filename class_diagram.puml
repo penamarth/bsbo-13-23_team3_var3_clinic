@@ -79,6 +79,7 @@ Doctor "1" -- "*" Appointment
 
 "Information System" *-- Shedule
 "Information System" *-- Notification
+"Information System" *-- "MedicalRecord"
 "Information System" ..|> Storage
 Shedule *-- Appointment
 }
