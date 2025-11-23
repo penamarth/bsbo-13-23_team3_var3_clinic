@@ -1,0 +1,37 @@
+@startuml
+title Reschedule Appointment (Перенос записи)
+
+/'
+  Пациент инициирует перенос записи.
+  Система запрашивает доступные временные окна у врача.
+  После выбора нового времени запись обновляется.
+'/
+
+actor Patient
+participant "System" as System
+participant "Doctor" as Doctor
+participant "Appointment" as Appointment
+
+== Initiate Reschedule ==
+Patient -> System : requestReschedule(appointmentId)\n/' запрос на перенос '/
+
+== Fetch Available Slots ==
+System -> Doctor : getAvailableSlots()
+Doctor --> System : availableSlots
+
+== Patient Chooses New Time ==
+System -> Patient : showAvailableSlots(slots)
+Patient --> System : chooseNewTime(newTimeSlot)
+
+== Update Appointment ==
+System -> Appointment : updateTime(newTimeSlot)
+Appointment --> System : updateConfirmation
+
+== Update Doctor Schedule ==
+System -> Doctor : updateSchedule(appointmentId, newTimeSlot)
+Doctor --> System : scheduleUpdated
+
+== Notify Patient ==
+System -> Patient : sendNotification()\n/' уведомление о переносе '/
+
+@enduml
