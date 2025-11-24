@@ -1,4 +1,5 @@
 **Операция: registerPatient(patientID: PatientID, adminID: AdminID, registrationData: RegistrationData)**
+
 **Ссылки:** Прецедент " Управление учётом пациентов "
 
 **Предусловия:**
@@ -27,7 +28,10 @@
 
 * В системе зафиксированы дата, основание и категория учёта
 
+
+
 **Операция: removePatientFromRecord(patientID: PatientID, adminID: AdminID, reason: string)**
+
 **Ссылки:** Прецедент " Управление учётом пациентов "
 
 **Предусловия:**
@@ -53,3 +57,4 @@
 * Создан и отправлен экземпляр notification класса Notification пациенту
 
 * В системе зафиксированы дата и причина снятия с учёта
+
