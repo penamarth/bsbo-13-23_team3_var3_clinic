@@ -1,0 +1,73 @@
+@startuml
+actor Administrator
+participant "Information System" as IS
+entity Patient
+entity MedicalRecord
+entity Notification
+
+== Постановка на учёт ==
+
+Administrator -> IS: registerPatient(patientID, registrationData)
+activate IS
+
+IS -> Patient: retrieve(patientID)
+activate Patient
+Patient --> IS: patientData
+deactivate Patient
+
+IS -> Patient: updateStatus("На учёте")
+activate Patient
+Patient --> IS: statusUpdated
+deactivate Patient
+
+IS -> MedicalRecord: createOrActivate(patientID)
+activate MedicalRecord
+MedicalRecord --> IS: recordCreated
+deactivate MedicalRecord
+
+IS -> MedicalRecord: addRegistrationEntry(registrationData)
+activate MedicalRecord
+MedicalRecord --> IS: entryAdded
+deactivate MedicalRecord
+
+IS -> Notification: create(type="registration", recipient=Patient)
+activate Notification
+Notification -> Patient: send("Успешная постановка на учёт")
+deactivate Notification
+
+IS --> Administrator: confirmRegistration()
+deactivate IS
+
+== Снятие с учёта ==
+
+Administrator -> IS: removePatientFromRecord(patientID, reason)
+activate IS
+
+IS -> Patient: retrieve(patientID)
+activate Patient
+Patient --> IS: patientData
+deactivate Patient
+
+IS -> Patient: updateStatus("Снят с учёта")
+activate Patient
+Patient --> IS: statusUpdated
+deactivate Patient
+
+IS -> MedicalRecord: archive()
+activate MedicalRecord
+MedicalRecord --> IS: recordArchived
+deactivate MedicalRecord
+
+IS -> MedicalRecord: addDeregistrationEntry(reason)
+activate MedicalRecord
+MedicalRecord --> IS: entryAdded
+deactivate MedicalRecord
+
+IS -> Notification: create(type="deregistration", recipient=Patient)
+activate Notification
+Notification -> Patient: send("Снятие с учёта")
+deactivate Notification
+
+IS --> Administrator: removalConfirmed()
+deactivate IS
+@enduml
