@@ -1,0 +1,47 @@
+@startuml
+
+actor "Администратор системы" as Admin
+participant "Информационная система" as IS
+participant "Пациент" as Patient
+participant "Медицинская карта" as MedicalRecord
+participant "Уведомление" as Notification
+
+Admin -> IS : createAppointment(patientID, appointmentData)
+activate IS
+
+IS -> Patient : retrieve(patientID)
+activate Patient
+Patient --> IS : patientData
+deactivate Patient
+
+IS -> MedicalRecord : updateStatus("Записан на прием")
+activate MedicalRecord
+MedicalRecord --> IS : statusUpdated
+deactivate MedicalRecord
+
+IS -> MedicalRecord : createOrActivate(patientID)
+activate MedicalRecord
+MedicalRecord --> IS : recordCreated
+deactivate MedicalRecord
+
+IS -> MedicalRecord : addAppointmentEntry(appointmentData)
+activate MedicalRecord
+MedicalRecord --> IS : entryAdded
+deactivate MedicalRecord
+
+IS -> Notification : create(type="appointment", recipient=Patient)
+activate Notification
+Notification --> IS : notificationCreated
+deactivate Notification
+
+Admin -> IS : confirmAppointment()
+activate IS
+IS --> Admin : appointmentConfirmed
+deactivate IS
+
+IS -> Notification : send("Успешная запись на прием")
+activate Notification
+Notification --> IS : notificationSent
+deactivate Notification
+
+@enduml
