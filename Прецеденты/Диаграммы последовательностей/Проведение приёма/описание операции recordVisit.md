@@ -1,4 +1,4 @@
-Операция: recordVisit(appointmentID: int, diagnosis: string, prescription: string)
+Операция: recordVisit(appointmentID: int)
 
 Ссылки: Прецедент «Проведение приёма».
 
