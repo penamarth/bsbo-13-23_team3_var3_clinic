@@ -1,1 +1,25 @@
-Будет делать Клим
+@startuml
+actor Doctor
+actor Pacient
+
+participant "Medical Information System" as MIS
+entity Appointment
+entity MedicalRecord
+entity Notification
+
+Pacient -> MIS : пришёл на приём (appointmentID)
+activate System
+MIS -> Appointment : retrieve(appointmentID)
+activate Appointment
+Appointment -> MedicalRecord : recordVisit(appointmentID)
+activate MedicalRecord
+MedicalRecord -> Appointment : linkVisitRecord
+deactivate MedicalRecord
+Appointment -> MIS : confirmSave()
+deactivate Appointment
+MIS -> Doctor : notify("Данные визита успешно сохранены")
+MIS -> Notification : create(type="visitResult", recipient=Pacient)
+activate Notification
+Notification -> Pacient : send(message="Результаты приёма доступны")
+deactivate Notification
+@enduml
