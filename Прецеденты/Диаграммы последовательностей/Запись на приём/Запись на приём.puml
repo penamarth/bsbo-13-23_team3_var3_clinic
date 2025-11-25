@@ -6,7 +6,7 @@ participant "Пациент" as Patient
 participant "Медицинская карта" as MedicalRecord
 participant "Уведомление" as Notification
 
-Admin -> IS : createAppointment(patientID, appointmentData)
+Admin -> IS : createAppointment(patientID, doctorID)
 activate IS
 
 IS -> Patient : retrieve(patientID)
@@ -45,3 +45,4 @@ Notification --> IS : notificationSent
 deactivate Notification
 
 @enduml
+
