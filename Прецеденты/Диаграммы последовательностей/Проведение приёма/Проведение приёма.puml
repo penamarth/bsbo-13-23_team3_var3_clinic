@@ -1,1 +1,40 @@
-//www.plantuml.com/plantuml/png/ZLFDQXin4BxhASIUrj2yG24bXLnyI0arz2vMuo3grIxIsE1R4rCef9T27w2F44fD36tYLnYzKKUxsbHBQfEJTcRd-z77wCoZShYi5q9Ls3XvtiGZ5PUgCc1HY9PdJ6LQPL4M5w1DfHPoQkUDgnMQnihPsYFKXLHUNandWa46rtB69EeAXl9jspR6Oitbq4fSxw5gd1wQxneqSsv7PY6I2Ndo9bBBrr9f_S5uWwNwnpSzdqJFPgKGEWSYpZ8aMM2O0rmwUwamifLjVuvmWzq1S_8acL12mxFXGq9zaANkZXVAz9XZAbc4lP8pi8A3IUI9vr1c6YKVkUB7yM37636gdfjR6FkneqlZ6WxmvB2dAAh6peshPuflDycnsVIGIigDKJPkpheiw3lTqGCzX5lQIlf9ExgdNRYXEnasuPhsj0rV-F-ZvE8nV0wVkl5j11IJWJLVm-Z80UkNk6xXj5Zr5_FB1HQlOdQcZGjocfOrosoqp7aH9T8uitkmkgp1UtN5zFI3pTo73VqENwFjS1Dk9UtPvovyepzy3_h5ng-vlw5zigtX_wByO_GqpbYA7_nV
+@startuml
+actor Doctor
+actor Pacient
+
+participant "Medical Information System" as MIS
+entity Storage
+entity Appointment
+entity MedicalRecord
+entity Notification
+
+Pacient -> MIS : addVisit(appointmentID)
+activate MIS
+
+MIS -> Storage : returnPatient(patientID)
+activate Storage
+Storage --> MIS : Patient
+deactivate Storage
+
+MIS -> Storage : returnDoctor(doctorID)
+activate Storage
+Storage --> MIS : Doctor
+deactivate Storage
+
+MIS -> Appointment : retrieve(appointmentID)
+activate Appointment
+Appointment -> MedicalRecord : recordVisit(appointmentID)
+activate MedicalRecord
+MedicalRecord -> Appointment : linkVisitRecord
+deactivate MedicalRecord
+Appointment -> MIS : confirmSave()
+deactivate Appointment
+
+MIS -> Doctor : notify("Данные визита успешно сохранены")
+MIS -> Notification : create(type="visitResult", recipient=Pacient)
+activate Notification
+Notification -> Pacient : send(message="Результаты приёма доступны")
+deactivate Notification
+
+deactivate MIS
+@enduml
