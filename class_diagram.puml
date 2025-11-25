@@ -2,8 +2,8 @@
 package "Medical Information System" {
 
 interface Storage {
-  + returnPatient(id)
-  + returnDoctor(id)
+  + returnPatient(patientID)
+  + returnDoctor(doctorID)
 }
 
 class Patient {
