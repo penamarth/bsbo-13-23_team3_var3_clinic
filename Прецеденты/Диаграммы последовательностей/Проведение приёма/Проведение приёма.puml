@@ -7,7 +7,7 @@ entity Appointment
 entity MedicalRecord
 entity Notification
 
-Pacient -> MIS : пришёл на приём (appointmentID)
+Pacient -> MIS : addVisit(appointmentID)
 activate System
 MIS -> Appointment : retrieve(appointmentID)
 activate Appointment
