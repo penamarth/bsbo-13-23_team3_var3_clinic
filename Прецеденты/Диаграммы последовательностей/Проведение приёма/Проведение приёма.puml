@@ -3,12 +3,24 @@ actor Doctor
 actor Pacient
 
 participant "Medical Information System" as MIS
+entity Storage
 entity Appointment
 entity MedicalRecord
 entity Notification
 
 Pacient -> MIS : addVisit(appointmentID)
-activate System
+activate MIS
+
+MIS -> Storage : returnPatient(patientID)
+activate Storage
+Storage --> MIS : Patient
+deactivate Storage
+
+MIS -> Storage : returnDoctor(doctorID)
+activate Storage
+Storage --> MIS : Doctor
+deactivate Storage
+
 MIS -> Appointment : retrieve(appointmentID)
 activate Appointment
 Appointment -> MedicalRecord : recordVisit(appointmentID)
@@ -17,9 +29,12 @@ MedicalRecord -> Appointment : linkVisitRecord
 deactivate MedicalRecord
 Appointment -> MIS : confirmSave()
 deactivate Appointment
+
 MIS -> Doctor : notify("Данные визита успешно сохранены")
 MIS -> Notification : create(type="visitResult", recipient=Pacient)
 activate Notification
 Notification -> Pacient : send(message="Результаты приёма доступны")
 deactivate Notification
+
+deactivate MIS
 @enduml
